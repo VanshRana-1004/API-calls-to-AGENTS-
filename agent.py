@@ -189,12 +189,12 @@ def run_code_agent(user_query, max_iterations=15, verbose=True):
     return "\n [MAX ITERATIONS REACHED] \n"
 
 
-result = run_code_agent(
-    "Write a Python function called 'is_palindrome(n)' that checks whether the given string is palindrome or not. A palindrome is a word, phrase, number, or other sequence of characters that reads the same forward and backward (ignoring spaces, punctuation, and capitalization). After writing the function, test it with the string"
-    "Save it to 'palidrome.py'. Then write a test script that imports it and tests with: "
-    " [\"abcba\"], [\"palindrome\"], [\"HOLLALLOH\"], [\"VANSH\"], [\"HAHAHAHAHAHAHAHAHAHAH\"]"
-    "Whenever taking any action, its your responsibility to provide respective path and content to the called function."
-)
+# result = run_code_agent(
+#     "Write a Python function called 'is_palindrome(n)' that checks whether the given string is palindrome or not. A palindrome is a word, phrase, number, or other sequence of characters that reads the same forward and backward (ignoring spaces, punctuation, and capitalization). After writing the function, test it with the string"
+#     "Whenever taking any action, its your responsibility to provide respective path and content to the called function."
+#     "Save it to 'palidrome.py'. Then write a test script that imports it and tests with: "
+#     " [\"abcba\"], [\"palindrome\"], [\"HOLLALLOH\"], [\"VANSH\"], [\"HAHAHAHAHAHAHAHAHAHAH\"]"
+# )
 
 # result = run_code_agent(
 #     "Write a Python function called 'is_prime(n)' that checks if a number is prime. "
@@ -202,3 +202,21 @@ result = run_code_agent(
 #     "1, 2, 13, 15, 97, 100. Print the results."
 # )
 
+# "Whenever taking any action, its your responsibility to provide respective path and content to the called function."
+
+# result = run_code_agent(
+#     "Create a CSV file called 'employees.csv' with columns: name, department, salary. "
+#     "Add at least 10 rows of realistic data across 3 departments (Engineering, Sales, Marketing). "
+#     "Then write a script that reads the CSV, calculates average salary per department, "
+#     "and prints a formatted report."
+# )
+
+result = run_code_agent(
+    "Write a Python program using the Sieve of Eratosthenes to find all primes up to 1000. "
+    "Save it as 'sieve.py'. Run it and print: the count of primes, the first 10, and the last 10."
+)
+
+if os.path.exists("sieve.py"):
+    print("\n--- sieve.py ---")
+    with open("sieve.py") as f:
+        print(f.read())
