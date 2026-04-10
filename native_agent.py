@@ -95,9 +95,6 @@ NATIVE_FNS = {
     "get_current_date": get_current_date,
 }
 
-input_token=0
-output_token=0
-
 def run_native_agent(user_query, max_iterations=10, verbose=True):
     """
     Agent using native function calling.
@@ -114,6 +111,9 @@ def run_native_agent(user_query, max_iterations=10, verbose=True):
         print(f"\n{'='*60}")
         print(f" USER: {user_query}")
         print(f"{'='*60}")
+
+    input_token=0
+    output_token=0
 
     for i in range(max_iterations):
         if verbose:
@@ -132,7 +132,11 @@ def run_native_agent(user_query, max_iterations=10, verbose=True):
 
         if finish == "stop" and msg.content:
             if verbose:
+                print(f"\n{'='*60}")
+                print(f"\n Total input tokens: {input_token}, Total output tokens: {output_token}, Total tokens: {input_token+output_token}")
+                print(f"\n{'='*60}")  
                 print(f" FINAL ANSWER:\n  {msg.content[:500]}")
+            
             return {"answer": msg.content, "iterations": i + 1}
 
         # Tool calls
@@ -173,5 +177,5 @@ def run_native_agent(user_query, max_iterations=10, verbose=True):
 
 
 result = run_native_agent(
-    "What's the date today and what will be tomorrow?"
+    "What is mediasoup and who is the lead maintainer?"
 )

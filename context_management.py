@@ -166,9 +166,6 @@ FNS = {
     "get_current_date": get_current_date,
 }
 
-input_token=0
-output_token=0
-
 def run_agent(user_query, max_iterations=15, verbose=True):
 
     messages=[
@@ -180,13 +177,16 @@ def run_agent(user_query, max_iterations=15, verbose=True):
         print(f"\n{'='*60}")
         print(f"User : {user_query}")
         print(f"\n{'='*60}")
+
+    input_token=0
+    output_token=0
     
     for i in range(max_iterations):
 
         if verbose:
             print(f"\n --- Iteration {i+1}/{max_iterations} ---")
 
-        if((i+1)%3==0):
+        if((i+1)%2==0):
             # summarize 
             summarize=client.chat.completions.create(
                 model=FREE_MODEL,
@@ -226,7 +226,12 @@ def run_agent(user_query, max_iterations=15, verbose=True):
 
         if finish=="stop" and msg.content:
             if verbose:
+                print(f"\n{'='*60}")
+                print(f"\n Total input tokens: {input_token}, Total output tokens: {output_token}, Total tokens: {input_token+output_token}")
+                print(f"\n{'='*60}")   
+
                 print(f"FINAL ANSWER: {msg.content}")
+
             return {"answer": msg.content, "iterations": i+1}
         
         if msg.tool_calls:
@@ -266,5 +271,5 @@ def run_agent(user_query, max_iterations=15, verbose=True):
     return {"answer": "Max iterations reached", "iterations": max_iterations}
 
 result=run_agent(
-    "What's the date today and what will be tomorrow?"    
+    "What is mediasoup and who is the lead maintainer?"    
 )
