@@ -132,7 +132,6 @@ def get_developer_info(name: str):
     except Exception as e:
         return json.dumps({"error": str(e)})
 
-
 def get_current_date():
     """Get the current date and time."""
     from datetime import datetime

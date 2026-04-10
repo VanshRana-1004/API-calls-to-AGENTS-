@@ -49,6 +49,7 @@ def get_current_date():
     """Get the current date and time."""
     from datetime import datetime
     return json.dumps({"datetime": datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
+
 NATIVE_TOOLS = [
     {
         "type": "function",
@@ -94,6 +95,8 @@ NATIVE_FNS = {
     "get_current_date": get_current_date,
 }
 
+input_token=0
+output_token=0
 
 def run_native_agent(user_query, max_iterations=10, verbose=True):
     """
@@ -120,6 +123,9 @@ def run_native_agent(user_query, max_iterations=10, verbose=True):
             model=TOOL_MODEL, messages=messages,
             tools=NATIVE_TOOLS, temperature=0, max_tokens=800,
         )
+
+        input_token += response.usage.prompt_tokens
+        output_token += response.usage.completion_tokens
 
         msg = response.choices[0].message
         finish = response.choices[0].finish_reason
@@ -159,6 +165,10 @@ def run_native_agent(user_query, max_iterations=10, verbose=True):
             else:
                 break
 
+    print(f"\n{'='*60}")
+    print(f"\n Total input tokens: {input_token}, Total output tokens: {output_token}, Total tokens: {input_token+output_token}")
+    print(f"\n{'='*60}")   
+    
     return {"answer": "Max iterations reached", "iterations": max_iterations}
 
 
